@@ -1,26 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="flex justify-center mt-5">
+    <div class="w-96 border-2 p-4">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-medium">Tasks Tracker</h1>
+        <AddTaskToggle
+          :status="showAddTask"
+          @toggleAddTask="this.showAddTask = !this.showAddTask"
+        />
+      </div>
+      <AddTask v-if="showAddTask" @addTask="addTask" />
+      <Tasks :task="task" />
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AddTask from "./components/AddTask.vue";
+import Tasks from "./components/Tasks.vue";
+import AddTaskToggle from "./components/AddTaskToggle.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    AddTask,
+    Tasks,
+    AddTaskToggle,
+  },
+  data() {
+    return {
+      showAddTask: true,
+      task: null,
+    };
+  },
+  methods: {
+    addTask(data) {
+      this.task = data;
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
